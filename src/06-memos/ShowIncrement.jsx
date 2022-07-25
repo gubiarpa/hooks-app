@@ -8,7 +8,7 @@ export const ShowIncrement = React.memo(({ increment }) => {
         <button
             className="btn btn-outline-primary"
             onClick={() => {
-                increment();
+                increment(5);
             }}
         >
             Incrementar
