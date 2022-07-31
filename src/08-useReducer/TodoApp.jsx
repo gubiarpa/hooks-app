@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoList } from "./TodoList";
-import { todoReducer } from "./TodoReducer";
+import { todoReducer } from "./todoReducer";
 
 const initialState = [];
 
