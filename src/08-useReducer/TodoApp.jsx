@@ -1,13 +1,22 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoList } from "./TodoList";
 import { todoReducer } from "./TodoReducer";
 
 const initialState = [];
 
+const init = () => {
+    return JSON.parse(localStorage.getItem('todos')) || [];
+}
+
 export const TodoApp = () => {
 
-    const [todos, dispatch] = useReducer(todoReducer, initialState);
+    const [todos, dispatch] = useReducer(todoReducer, initialState, init);
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos])
+    
 
     const handleNewTodo = (newTodo) => {
         const action = {
@@ -22,7 +31,7 @@ export const TodoApp = () => {
         <>
             <h1>TodoApp</h1>
             <h4 className="text-end text-secondary">
-                Pendientes: 2 de 10
+                Pendientes: {todos.filter(todo => !todo.done).length} de {todos.length}
             </h4>
             <hr />
 
