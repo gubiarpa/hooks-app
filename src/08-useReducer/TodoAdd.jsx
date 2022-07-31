@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "../hooks/useForm";
 
 export const TodoAdd = ({ onNewTodo = () => { } }) => {
@@ -6,7 +6,7 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
     const {
         description,
         onInputChange,
-        onResetForm
+        resetForm
     } = useForm({
         description: "",
     });
@@ -20,11 +20,11 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
         const newTodo = {
             id: new Date().getTime(),
             done: false,
-            description: description
+            description: description,
         };
 
         onNewTodo(newTodo);
-        onResetForm();
+        resetForm();
     }
 
     return (
