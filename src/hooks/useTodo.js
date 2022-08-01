@@ -4,6 +4,8 @@ export const useTodo = (todoReducer, initialState = [], init = () => { }) => {
 
     const [todos, dispatch] = useReducer(todoReducer, initialState, init);
 
+    
+
     const handleNewTodo = (newTodo) => {
         const action = {
             type: "[TODO] Add Todo",
@@ -33,6 +35,8 @@ export const useTodo = (todoReducer, initialState = [], init = () => { }) => {
 
     return ({
         todos,
+        todosCount: todos?.length,
+        pendingTodosCount: todos?.filter(todo => !todo.done).length,
         handleNewTodo,
         handleToogleTodo,
         handleRemoveTodo

@@ -44,6 +44,7 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
             <button
                 type="submit"
                 className="btn btn-outline-primary mt-2"
+                disabled={description.length <= 1}
             >
                 Agregar
             </button>

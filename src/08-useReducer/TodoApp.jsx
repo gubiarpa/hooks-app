@@ -14,6 +14,8 @@ export const TodoApp = () => {
 
     const {
         todos,
+        todosCount,
+        pendingTodosCount,
         handleNewTodo,
         handleToogleTodo,
         handleRemoveTodo
@@ -23,11 +25,21 @@ export const TodoApp = () => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos])
 
+    const statusMessage = () => {
+        if (todos?.length === 0) {
+            return "No hay tareas registradas :(";
+        } else if (todos?.filter(todo => !todo.done).length === 0) {
+            return "Sin pendientes :)";
+        } else {
+            return `Pendientes: ${pendingTodosCount} de ${todosCount}`;
+        }
+    }
+
     return (
         <>
             <h1>TodoApp</h1>
             <h4 className="text-end text-secondary">
-                Pendientes: {todos.filter(todo => !todo.done).length} de {todos.length}
+                {statusMessage()}
             </h4>
             <hr />
 
