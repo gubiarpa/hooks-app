@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
+import { useTodo } from "../hooks/useTodo";
 import { TodoAdd } from "./TodoAdd";
 import { TodoList } from "./TodoList";
 import { todoReducer } from "./todoReducer";
@@ -11,40 +12,16 @@ const init = () => {
 
 export const TodoApp = () => {
 
-    const [todos, dispatch] = useReducer(todoReducer, initialState, init);
+    const {
+        todos,
+        handleNewTodo,
+        handleToogleTodo,
+        handleRemoveTodo
+    } = useTodo(todoReducer, initialState, init);
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos])
-
-
-    const handleNewTodo = (newTodo) => {
-        const action = {
-            type: "[TODO] Add Todo",
-            payload: newTodo
-        };
-
-        dispatch(action);
-    }
-
-    const handleToogleTodo = (id) => {
-        const action = {
-            type: "[TODO] Toogle Todo",
-            payload: id
-        };
-
-        dispatch(action);
-    }
-
-    const handleRemoveTodo = (id) => {
-
-        const action = {
-            type: "[TODO] Remove Todo",
-            payload: id
-        };
-
-        dispatch(action);
-    }
 
     return (
         <>
@@ -55,17 +32,17 @@ export const TodoApp = () => {
             <hr />
 
             <div className="row">
-                <div className="col-7">
+                <div className="col-sm-5">
+                    <h4>Agregar TODO</h4>
+                    <hr />
+                    <TodoAdd onNewTodo={handleNewTodo} />
+                </div>
+                <div className="col-sm-7 mt-5">
                     <TodoList
                         todos={todos}
                         onToogleTodo={handleToogleTodo}
                         onDeleteTodo={handleRemoveTodo}
                     />
-                </div>
-                <div className="col-5">
-                    <h4>Agregar TODO</h4>
-                    <hr />
-                    <TodoAdd onNewTodo={handleNewTodo} />
                 </div>
             </div>
 

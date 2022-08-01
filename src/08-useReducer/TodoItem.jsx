@@ -17,6 +17,7 @@ export const TodoItem = ({
             <button
                 className="btn btn-outline-danger"
                 onClick={() => onDeleteTodo(todo.id)}
+                disabled={todo.done}
             >
                 Borrar
             </button>
