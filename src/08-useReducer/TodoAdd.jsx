@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "../hooks/useForm";
 
 export const TodoAdd = ({ onNewTodo = () => { } }) => {
@@ -10,6 +10,8 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
     } = useForm({
         description: "",
     });
+
+    const inputdescriptionRef = useRef();
 
     const onFormSubmit = (event) => {
         event.preventDefault();
@@ -25,11 +27,13 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
 
         onNewTodo(newTodo);
         resetForm();
+        inputdescriptionRef.current.select();
     }
 
     return (
         <form onSubmit={onFormSubmit}>
             <input
+                ref={inputdescriptionRef}
                 type="text"
                 placeholder="¿Qué hay que hacer?"
                 className="form-control"
@@ -40,6 +44,7 @@ export const TodoAdd = ({ onNewTodo = () => { } }) => {
             <button
                 type="submit"
                 className="btn btn-outline-primary mt-2"
+                disabled={description.length <= 1}
             >
                 Agregar
             </button>
